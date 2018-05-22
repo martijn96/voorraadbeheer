@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Bestellingen overzicht</h1>
+    <table>
+        <tr>
+            <td>Product aantal</td>
+            <td>Product barcode</td>
+        </tr>
+
+        {% for bestelling in bestellingen %}
+            <tr>
+                <td>{{ bestelling.aantal }}</td>
+                <td>{{ bestelling.productBarcode }}</td>
+
+                <td><a href="{{ path('wijzigbestelopdracht', {'id':bestelling.id}) }}">Wijzigen</a></td>
+                <td><a href="{{ path('verwijderbestelopdracht', {'id':bestelling.id}) }}">Verwijderen</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{{ path('nieuwebestelopdracht') }}">Nieuwe bestelopdracht</a>
+{% endblock %}

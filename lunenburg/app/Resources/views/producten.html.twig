@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<h1>Producten</h1>
+	<ul> 
+	{% for product in producten %}
+			<li>
+
+			{{ product.naam }}, {{ product.inkoopprijs }},
+                {%  if product.voorraad - product.minVoorraad < 0 %}
+                    <a href="{{ path('verwijderproduct', {'id':product.id}) }}">Bestelserie: {{ product.minVoorraad - product.voorraad }}</a>
+                {% endif %}
+			<a href="{{ path('wijzigproduct', {'id':product.id}) }}">Wijzigen</a>
+			<a href="{{ path('verwijderproduct', {'id':product.id}) }}">Verwijderen</a>
+
+
+			</li>
+	{% endfor %}
+	<ul>
+{% endblock %}
+
