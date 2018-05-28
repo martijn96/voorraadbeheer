@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Bestelopdracht;
 use AppBundle\Entity\Goederenontvangst;
 use AppBundle\Form\BestelopdrachtType;
+use AppBundle\Form\MinvoorraadType;
 use AppBundle\Form\ProductType;
 use AppBundle\Form\Type\GoederenontvangstType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -57,6 +58,24 @@ class DefaultController extends Controller
             $em->persist($bestaandProduct);
             $em->flush();
             return $this->redirect($this->generateurl("wijzigproduct", array("id" => $bestaandProduct->getId())));
+        }
+
+        return new Response($this->render('form.html.twig', array('form' => $form->createView())));
+    }
+
+    /**
+     * @Route ("/product/wijzigminvoorraad/{id} ", name="wijzigminvoorraad")
+     */
+    public function wijzigMinvoorraad(Request $request, $id){
+        $bestaandProduct = $this->getDoctrine()->getRepository("AppBundle:Product")->find($id);
+        $form = $this->createForm(MinvoorraadType::class, $bestaandProduct);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($bestaandProduct);
+            $em->flush();
+            return $this->redirect($this->generateurl("wijzigminvoorraad", array("id" => $bestaandProduct->getId())));
         }
 
         return new Response($this->render('form.html.twig', array('form' => $form->createView())));

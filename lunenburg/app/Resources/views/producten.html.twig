@@ -10,6 +10,7 @@
                     <a href="{{ path('verwijderproduct', {'id':product.id}) }}">Bestelserie: {{ product.minVoorraad - product.voorraad }}</a>
                 {% endif %}
 			<a href="{{ path('wijzigproduct', {'id':product.id}) }}">Wijzigen</a>
+			<a href="{{ path('wijzigminvoorraad', {'id':product.id}) }}">Wijzigen minimum voorraad</a> //Moet alleen gedaan kunnen worden door inkoper
 			<a href="{{ path('verwijderproduct', {'id':product.id}) }}">Verwijderen</a>
 
 
