@@ -6,6 +6,7 @@ use AppBundle\Entity\Goederenontvangst;
 use AppBundle\Form\BestelopdrachtType;
 use AppBundle\Form\ProductType;
 use AppBundle\Form\Type\GoederenontvangstType;
+use AppBundle\Form\WijzigenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -49,7 +50,7 @@ class DefaultController extends Controller
      */
     public function wijzigProduct(Request $request, $id){
         $bestaandProduct = $this->getDoctrine()->getRepository("AppBundle:Product")->find($id);
-        $form = $this->createForm(ProductType::class, $bestaandProduct);
+        $form = $this->createForm(WijzigenType::class, $bestaandProduct);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -61,6 +62,8 @@ class DefaultController extends Controller
 
         return new Response($this->render('form.html.twig', array('form' => $form->createView())));
     }
+
+
 
     /**
      * @Route ("/producten", name="alleproducten")

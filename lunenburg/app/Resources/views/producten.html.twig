@@ -5,7 +5,7 @@
 	{% for product in producten %}
 			<li>
 
-			{{ product.naam }}, {{ product.inkoopprijs }},
+			{{ product.naam }}, {{ product.inkoopprijs }}, {{ product.voorraad }}
                 {%  if product.voorraad - product.minVoorraad < 0 %}
                     <a href="{{ path('verwijderproduct', {'id':product.id}) }}">Bestelserie: {{ product.minVoorraad - product.voorraad }}</a>
                 {% endif %}
