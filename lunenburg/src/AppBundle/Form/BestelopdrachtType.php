@@ -30,7 +30,7 @@ class BestelopdrachtType extends AbstractType
             //'choice_label' => 'naam'))
             ->add('product_barcode', TextType::class)
             ->add('aantal', TextType::class) //naam is b.v. een attribuut of variabele van klant
-            ->add('datum', DateType::class) //naam is b.v. een attribuut of variabele van klant
+            ->add('datum', DateType::class)
             ->add('status_id', TextType::class) //, array(
             //'class' => 'AppBundle:Bestelstatus',
             //'choice_label' => 'status'))

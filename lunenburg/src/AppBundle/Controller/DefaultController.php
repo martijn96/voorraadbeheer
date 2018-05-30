@@ -8,10 +8,11 @@ use AppBundle\Form\ProductType;
 use AppBundle\Form\Type\GoederenontvangstType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\Product;
+
 
 class DefaultController extends Controller
 {
@@ -86,6 +87,15 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route ("/voorraad", name="voorraad")
+     */
+    public function voorraad(Request $request){
+        $producten = $this->getDoctrine()->getRepository("AppBundle:Product")->findAll();
+//        $voorraad = $this->getDoctrine()->getRepository("Appbundle:Voorraad");
+        return new Response($this->render('voorraad.html.twig', array('producten' => $producten)));
+    }
+
+    /**
      * @Route ("/bestelopdracht/nieuw ", name="nieuwebestelopdracht")
      */
     public function nieuweBestelopdracht(Request $request){
@@ -148,6 +158,10 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($nieuweGoederen);
             $em->flush();
+            $this->addFlash(
+                'notice',
+                'Artikel(en) zijn toegevoegd.'
+            );
             return $this->redirect($this->generateurl("nieuweontvangst"));
         }
         return new Response($this->render('form.html.twig', array('form' => $form->createView())));
