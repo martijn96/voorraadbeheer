@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <br>
+            <form method="post" action="">
+                {{ form_start(form) }}
+                {{ form_row(form.leverancier_id) }}
+
+                {{ form_label(form.bestelregels) }}
+
+                <ul id="bestelregels-fields-list"
+                    data-prototype="{{ form_widget(form.bestelregels.vars.prototype)|e }}"
+                    data-widget-tags="{{ '<li></li>'|e }}">
+                    {% for bestelregelField in form.bestelregels %}
+                        <li>
+                            {{ form_errors(bestelregelField) }}
+                            {{ form_widget(bestelregelField) }}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <a href="#"
+                   class="add-another-collection-widget"
+                   data-list="#bestelregels-fields-list">Bestelregel toevoegen</a>
+
+                <hr />
+
+                <input class="btn btn-default" type="submit">
+                <a href="javascript:history.back()">Annuleren</a>
+
+                <div style="display: none;">
+                    {{ form_end(form) }}
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
