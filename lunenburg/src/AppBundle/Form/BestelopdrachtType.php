@@ -37,8 +37,7 @@ class BestelopdrachtType extends AbstractType
                 'label' => 'Leverancier Naam',
                 'class' => 'AppBundle:Leverancier',
                 'choice_label' => 'naam',
-            ))
-        ;
+            ));
 
 
 
