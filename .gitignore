@@ -4,3 +4,10 @@ lunenburg/.idea/lunenburg.iml
 lunenburg/.idea/modules.xml
 lunenburg/.idea/workspace.xml
 lunenburg/.idea/misc.xml
+lunenburg/app/Resources/.DS_Store
+lunenburg/app/Resources/views/.DS_Store
+lunenburg/app/.DS_Store
+lunenburg/.DS_Store
+lunenburg/src/AppBundle/Controller/.DS_Store
+lunenburg/src/AppBundle/Entity/.DS_Store
+lunenburg/src/AppBundle/Form/.DS_Store

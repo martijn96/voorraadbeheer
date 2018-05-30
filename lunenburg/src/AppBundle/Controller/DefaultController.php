@@ -2,16 +2,18 @@
 
 namespace AppBundle\Controller;
 use AppBundle\Entity\Bestelopdracht;
+use AppBundle\Entity\Bestelling;
+use AppBundle\Form\BestellingType;
 use AppBundle\Entity\Goederenontvangst;
 use AppBundle\Form\BestelopdrachtType;
 use AppBundle\Form\ProductType;
-use AppBundle\Form\Type\GoederenontvangstType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Product;
+
 
 class DefaultController extends Controller
 {
@@ -80,8 +82,6 @@ class DefaultController extends Controller
         $em->remove($bestaandeProduct);
         $em->flush();
 
-
-
         return new Response($this->redirect($this->generateurl("alleproducten")));
     }
 
@@ -92,10 +92,12 @@ class DefaultController extends Controller
         $nieuweBestelopdracht = new Bestelopdracht();
         $form = $this->createForm(BestelopdrachtType::class, $nieuweBestelopdracht);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($nieuweBestelopdracht);
             $em->flush();
+
             return $this->redirect($this->generateurl("nieuwebestelopdracht"));
         }
         return new Response($this->render('form.html.twig', array('form' => $form->createView())));
@@ -105,14 +107,14 @@ class DefaultController extends Controller
      * @Route ("/bestelopdracht/wijzig/{id} ", name="wijzigbestelopdracht")
      */
     public function wijzigBestelopdracht(Request $request, $id){
-        $bestaandeProduct = $this->getDoctrine()->getRepository("AppBundle:Product")->find($id);
-        $form = $this->createForm(ProductType::class, $bestaandeProduct);
+        $bestaandeProduct = $this->getDoctrine()->getRepository("AppBundle:Bestelopdracht")->find($id);
+        $form = $this->createForm(BestelopdrachtType::class, $bestaandeProduct);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($bestaandeProduct);
             $em->flush();
-            return $this->redirect($this->generateurl("bestelopdrachtwijzigen", array("id" => $bestaandeProduct->getId())));
+            return $this->redirect($this->generateurl("wijzigbestelopdracht", array("id" => $bestaandeProduct->getId())));
         }
         return new Response($this->render('form.html.twig', array('form' => $form->createView())));
     }
@@ -125,7 +127,7 @@ class DefaultController extends Controller
         $bestaandeBestelopdracht = $em->getRepository("AppBundle:Bestelopdracht")->find($id);
         $em->remove($bestaandeBestelopdracht);
         $em->flush();
-        return new Response($this->redirect($this->generateurl("allebesteldrachten")));
+        return new Response($this->redirect($this->generateurl("allebestelopdrachten")));
     }
 
     /**
@@ -160,6 +162,32 @@ class DefaultController extends Controller
     public function ontvangenGoederen(Request $request){
         $ontvangen = $this->getDoctrine()->getRepository("AppBundle:Goederenontvangst")->findAll();
         return new Response($this->render('ontvangengoederen.html.twig', array('ontvangengoederen' => $ontvangen)));
+    }
+
+    /**
+     * @Route("/inkoper/bestelling/nieuw", name="bestellingnieuw")
+     */
+    public function nieuweBestelling (Request $request) {
+        $nieuweBestelling = new Bestelling();
+        $form = $this->createForm(BestellingType::class, $nieuweBestelling);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            foreach ($nieuweBestelling->getBestelregels() as $bestelregel) {
+                $bestelregel->setBestellingId($nieuweBestelling);
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($nieuweBestelling);
+            $em->flush();
+            return $this->redirect($this->generateurl("allebestelopdrachten"));
+        }
+
+        //Verwijzing naar formulier
+        return $this->render('formbestel.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 

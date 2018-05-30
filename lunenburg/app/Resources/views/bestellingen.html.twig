@@ -2,15 +2,17 @@
 {% block body %}
     <h1>Bestellingen overzicht</h1>
     <table>
-        <tr>
-            <td>Product aantal</td>
-            <td>Product barcode</td>
-        </tr>
+            <tr>
+                <td>Aantal bestele producten</td>
+                <td>Productbarcode</td>
+
+            </tr>
 
         {% for bestelling in bestellingen %}
             <tr>
                 <td>{{ bestelling.aantal }}</td>
                 <td>{{ bestelling.productBarcode }}</td>
+
 
                 <td><a href="{{ path('wijzigbestelopdracht', {'id':bestelling.id}) }}">Wijzigen</a></td>
                 <td><a href="{{ path('verwijderbestelopdracht', {'id':bestelling.id}) }}">Verwijderen</a></td>
