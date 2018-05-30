@@ -44,6 +44,15 @@
         <script type="text/javascript" src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
     {% endblock %}
+	
+	
+{% for message in app.flashes('notice') %}
+    <div class="flash-notice">
+        {{ message }}
+    </div>
+{% endfor %}
+
+
 </div>
 </body>
 </html>

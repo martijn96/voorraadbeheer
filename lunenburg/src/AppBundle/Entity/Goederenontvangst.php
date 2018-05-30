@@ -2,8 +2,9 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Goederenontvangst
  *
@@ -21,7 +22,6 @@ class Goederenontvangst
 
     /**
      * @var string
-     *
      * @ORM\Column(name="leverancier", type="string", length=11, nullable=true)
      */
     private $leverancier;
@@ -43,14 +43,14 @@ class Goederenontvangst
     /**
      * @var string
      *
-     * @ORM\Column(name="artikelnummer", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="artikelnummer", type="text", length=65535, nullable=false)
      */
     private $artikelnummer;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="aantal", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="aantal", type="string", length=11, nullable=true)
      */
     private $aantal;
 
@@ -87,6 +87,10 @@ class Goederenontvangst
     }
 
     /**
+     *  @Assert\Range(
+     *  min = "-2 years",
+     *  max = "+2 years"
+     * )
      * Get datum
      *
      * @return \DateTime
@@ -181,9 +185,8 @@ class Goederenontvangst
 
         return $this;
     }
-
     /**
-     * Get artikelnummer
+    * Get artikelnummer
      *
      * @return string
      */
