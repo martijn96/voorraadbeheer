@@ -1,0 +1,61 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Bestelopdracht
+ *
+ * @ORM\Table(name="bestelopdracht")
+ * @ORM\Entity
+ */
+class Bestelopdracht
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="product_barcode", type="text", length=65535, nullable=true)
+     */
+    private $productBarcode;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="aantal", type="text", length=65535, nullable=true)
+     */
+    private $aantal;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datum", type="datetime", nullable=true)
+     */
+    private $datum;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="status_id", type="integer", nullable=true)
+     */
+    private $statusId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="leverancier_id", type="integer", nullable=true)
+     */
+    private $leverancierId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+

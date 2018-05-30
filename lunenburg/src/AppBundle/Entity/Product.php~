@@ -1,0 +1,82 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Product
+ *
+ * @ORM\Table(name="product")
+ * @ORM\Entity
+ */
+class Product
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="naam", type="string", length=255, nullable=false)
+     */
+    private $naam = '';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="beschrijving", type="text", length=65535, nullable=true)
+     */
+    private $beschrijving;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="specificaties", type="text", length=65535, nullable=true)
+     */
+    private $specificaties;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="inkoopprijs", type="string", length=255, nullable=false)
+     */
+    private $inkoopprijs = '';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="magazijnlocatie_id", type="integer", nullable=true)
+     */
+    private $magazijnlocatieId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="minVoorraad", type="integer", nullable=true)
+     */
+    private $minvoorraad;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="voorraad", type="integer", nullable=false)
+     */
+    private $voorraad;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="vervangend_id", type="integer", nullable=true)
+     */
+    private $vervangendId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+

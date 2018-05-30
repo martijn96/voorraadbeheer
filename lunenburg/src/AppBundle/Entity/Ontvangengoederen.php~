@@ -1,0 +1,61 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Ontvangengoederen
+ *
+ * @ORM\Table(name="ontvangengoederen")
+ * @ORM\Entity
+ */
+class Ontvangengoederen
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="kwaliteit", type="integer", nullable=true)
+     */
+    private $kwaliteit;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="aantal", type="integer", nullable=true)
+     */
+    private $aantal;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datum_ontvangst", type="date", nullable=true)
+     */
+    private $datumOntvangst;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="omschrijving", type="text", length=65535, nullable=true)
+     */
+    private $omschrijving;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="leverancier", type="string", length=255, nullable=true)
+     */
+    private $leverancier;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+
