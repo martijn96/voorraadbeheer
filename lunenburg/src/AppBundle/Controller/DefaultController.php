@@ -174,6 +174,15 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route ("/hoofd/financien", name="hoofdfinancien")
+     */
+    public function informatieHoofdFinancien(Request $request){
+        $producten = $this->getDoctrine()->getRepository("AppBundle:Product")->findAll();
+
+        return new Response($this->render('hoofdfinancieninformatie.html.twig', array('producten' => $producten)));
+    }
+
+    /**
      * @Route("/inkoper/bestelling/nieuw", name="bestellingnieuw")
      */
     public function nieuweBestelling (Request $request) {
