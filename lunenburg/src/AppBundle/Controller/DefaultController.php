@@ -165,6 +165,15 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route ("/magazijn/meester", name="magazijnmeester")
+     */
+    public function informatieMagazijnmeester(Request $request){
+        $producten = $this->getDoctrine()->getRepository("AppBundle:Product")->findAll();
+
+        return new Response($this->render('magazijnmeesterinformatie.html.twig', array('producten' => $producten)));
+    }
+
+    /**
      * @Route("/inkoper/bestelling/nieuw", name="bestellingnieuw")
      */
     public function nieuweBestelling (Request $request) {

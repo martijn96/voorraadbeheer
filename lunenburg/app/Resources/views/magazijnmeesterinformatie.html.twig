@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<h1>Magazijnmeester is papa</h1>
+	<ul> 
+	{% for product in producten %}
+
+		    <table>
+                <tr>
+                    <td>Artikelnaam</td>
+                    <td>Technische Voorraad</td>
+                    <td>Gereserveerde Voorraad</td>
+                    <td>Vrije voorraad</td>
+                </tr>
+
+                <tr>
+                    <td> {{ product.naam }} </td>
+                    <td> {{ product.technischevoorraad }} </td>
+                    <td> {{ product.gereserveerdevoorraad }} </td>
+                    <td> {{ product.voorraad }} </td>
+                </tr>
+
+
+            </table>
+
+	{% endfor %}
+	</ul>
+    <a href="{{ path('alleproducten') }}">Terug naar alle producten</a>
+{% endblock %}
+

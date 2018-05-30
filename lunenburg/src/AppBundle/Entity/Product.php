@@ -64,6 +64,20 @@ class Product
     /**
      * @var integer
      *
+     * @ORM\Column(name="technische_voorraad", type="integer", nullable=false)
+     */
+    private $technischeVoorraad;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="gereserveerde_voorraad", type="integer", nullable=false)
+     */
+    private $gereserveerdeVoorraad;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="vervangend_id", type="integer", nullable=true)
      */
     private $vervangendId;
@@ -237,6 +251,7 @@ class Product
         return $this;
     }
 
+
     /**
      * Get voorraad
      *
@@ -245,6 +260,54 @@ class Product
     public function getVoorraad()
     {
         return $this->voorraad;
+    }
+
+    /**
+     * Get technischeVoorraad
+     *
+     * @return integer
+     */
+    public function getTechnischeVoorraad()
+    {
+        return $this->technischeVoorraad;
+    }
+
+    /**
+     * Set technischeVoorraad
+     *
+     * @param integer $technischeVoorraad
+     *
+     * @return Product
+     */
+    public function setTechnischeVoorraad($technischeVoorraad)
+    {
+        $this->technischeVoorraad = $technischeVoorraad;
+
+        return $this;
+    }
+
+    /**
+     * Get gereserveerdeVoorraad
+     *
+     * @return integer
+     */
+    public function getGereserveerdeVoorraad()
+    {
+        return $this->gereserveerdeVoorraad;
+    }
+
+    /**
+     * Set gereserveerdeVoorraad
+     *
+     * @param integer $gereserveerdeVoorraad
+     *
+     * @return Product
+     */
+    public function setGereserveerdeVoorraad($gereserveerdeVoorraad)
+    {
+        $this->gereserveerdeVoorraad = $gereserveerdeVoorraad;
+
+        return $this;
     }
 
     /**
