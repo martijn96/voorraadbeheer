@@ -44,7 +44,11 @@ class Product
      * @var integer
      *
      * @ORM\Column(name="magazijnlocatie_id", type="integer", nullable=true)
+     *
+     * @ManyToOne(targetEntity="magazijnlocatie")
+     * @JoinColumn(name="magazijnlocatie_id", referencedColumnName="id")
      */
+     
     private $magazijnlocatieId;
 
     /**
@@ -77,6 +81,12 @@ class Product
      */
     private $id;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="status", type="integer", nullable=false)
+     */
+    private $status;
 
 
     /**
@@ -200,6 +210,28 @@ class Product
     }
 
     /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set status
+     *
+     * @return integer
+     */
+    public function setStatus($status)
+    {
+         $this->status = $status;
+
+         return $this;
+    }
+
+    /**
      * Set minvoorraad
      *
      * @param integer $minvoorraad
@@ -279,5 +311,10 @@ class Product
     public function getId()
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->id;
     }
 }

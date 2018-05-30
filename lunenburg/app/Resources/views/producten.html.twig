@@ -1,20 +1,30 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 	<h1>Producten</h1>
-	<ul> 
+	<table class="table table-bordered table-striped table-hover">
+
+<thead>
+<td>ID</td>
+<td>Productnaam</td>
+<td>Inkoopprijs</td>
+<td>Wijzigen</td>
+<td>Verwijderen</td>
+</thead>
+<tbody>
 	{% for product in producten %}
-			<li>
 
-			{{ product.naam }}, {{ product.inkoopprijs }},
-                {%  if product.voorraad - product.minVoorraad < 0 %}
-                    <a href="{{ path('verwijderproduct', {'id':product.id}) }}">Bestelserie: {{ product.minVoorraad - product.voorraad }}</a>
-                {% endif %}
-			<a href="{{ path('wijzigproduct', {'id':product.id}) }}">Wijzigen</a>
-			<a href="{{ path('verwijderproduct', {'id':product.id}) }}">Verwijderen</a>
+			<tr>
+			<td>{{ product.id }}</td>
+			<td>{{ product.naam }}</td>
+				<td>{{ product.inkoopprijs }}</td>
+
+			<td><a href="{{ path('wijzigproduct', {'id':product.id}) }}">Wijzigen</a></td>
+			<td><a href="{{ path('verwijderproduct', {'id':product.id}) }}">Verwijderen</a></td>
 
 
-			</li>
+			</tr>
 	{% endfor %}
-	<ul>
+</tbody>
+	</table>
 {% endblock %}
 

@@ -86,6 +86,15 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route ("/voorraad", name="voorraad")
+     */
+    public function voorraad(Request $request){
+        $producten = $this->getDoctrine()->getRepository("AppBundle:Product")->findAll();
+//        $voorraad = $this->getDoctrine()->getRepository("Appbundle:Voorraad");
+        return new Response($this->render('voorraad.html.twig', array('producten' => $producten)));
+    }
+
+    /**
      * @Route ("/bestelopdracht/nieuw ", name="nieuwebestelopdracht")
      */
     public function nieuweBestelopdracht(Request $request){

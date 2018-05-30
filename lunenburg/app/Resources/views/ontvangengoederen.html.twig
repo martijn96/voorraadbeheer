@@ -1,13 +1,24 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <h1>Ontvangen goederen in magazijn</h1>
-    <h4>Barcode Aantal Leverancier</h4>
+<table class="table table-bordered table-striped table-hover">
 
+     <thead>
+        <td>Barcode</td>
+        <td>Aantal</td>
+        <td>Leverancier</td>
+        </thead>
+        <tbody>
     {% for ontvangen in ontvangengoederen %}
-        <li>
 
-            {{ ontvangen.id }}      {{ ontvangen.aantal }}          {{ ontvangen.leverancier }}
+        <tr>
+            <td>{{ ontvangen.id }}</td>
+            <td>{{ ontvangen.aantal }}</td>
+            <td>{{ ontvangen.leverancier }}</td>
+        </tr>
 
-        </li>
     {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}
