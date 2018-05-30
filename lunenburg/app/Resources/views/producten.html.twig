@@ -5,17 +5,18 @@
 	{% for product in producten %}
 			<li>
 
-			{{ product.naam }}, {{ product.inkoopprijs }},
-                {%  if product.voorraad - product.minVoorraad < 0 %}
-                    <a href="{{ path('verwijderproduct', {'id':product.id}) }}">Bestelserie: {{ product.minVoorraad - product.voorraad }}</a>
-                {% endif %}
-			<a href="{{ path('wijzigproduct', {'id':product.id}) }}">Wijzigen</a>
-			<a href="{{ path('verwijderproduct', {'id':product.id}) }}">Verwijderen</a>
-                <a href="{{ path('magazijnmeester') }}">Informatie magazijnmeester</a>
+                {{ product.naam }}, {{ product.inkoopprijs }},
+                    {%  if product.voorraad - product.minVoorraad < 0 %}
+                        <a href="{{ path('verwijderproduct', {'id':product.id}) }}">Bestelserie: {{ product.minVoorraad - product.voorraad }}</a>
+                    {% endif %}
+                <a href="{{ path('wijzigproduct', {'id':product.id}) }}">Wijzigen</a>
+                <a href="{{ path('verwijderproduct', {'id':product.id}) }}">Verwijderen</a>
 
 
 			</li>
 	{% endfor %}
+
+        <a href="{{ path('magazijnmeester') }}">Informatie magazijnmeester</a>
 	</ul>
 {% endblock %}
 
