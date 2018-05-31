@@ -40,7 +40,7 @@ class GoederenontvangstType extends AbstractType
 
         ->add('leverancier', EntityType::class, array(
         // looks for choices from this entity
-        'class' => "AppBundle:Bestelopdracht",
+        'class' => "AppBundle:Leverancier",
 
         // uses the User.username property as the visible option string
         'choice_label' => 'naam',

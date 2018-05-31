@@ -32,7 +32,7 @@ class Bestelregel
      * @var int
 
      *
-     * @ORM\ManyToOne(targetEntity="bestelling", inversedBy="bestelregel")
+     * @ORM\OneToMany(targetEntity="bestelling")
      * @ORM\JoinColumn(name="bestelling_id", referencedColumnName="id")
      */
     private $bestellingId;

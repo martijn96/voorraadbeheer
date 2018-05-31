@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+    <div class="row">
+        <br>
+        <h1>Ontvangen goederen</h1>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <table class="table table-bordered table-striped table-hover">
+            <td>ID</td>
+            <td>Naam</td>
+            <td>Aantal</td>
+            <td>Leverancier</td>
+            </thead>
+            <tbody>
+    {% for ontvangen in ontvangengoederen %}
+        <tr>
+
+            <td>{{ ontvangen.id }}</td>
+            {% for product in producten %}
+                    {% if product.id == ontvangen.id %}
+                        <td> {{ product.naam }} </td>
+                    {% else %}
+                        {#<td>naam </td>#}
+                    {% endif %}
+            {% endfor %}
+            <td>{{ ontvangen.aantal }}</td>
+            <td>{{ ontvangen.leverancier }}</td>
+
+        </tr>
+    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div>
+{% endblock %}

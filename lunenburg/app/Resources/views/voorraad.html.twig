@@ -1,10 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 <div class="container">
+<div class="row">
+	<br>
 	<h1>Voorraad</h1>
-
+</div>
+	<br><br>
 	<div class="row">
-<h2>Beneden bestelserie:</h2>
+<h3>Beneden bestelserie:</h3>
 	<table class="table table-bordered table-striped table-hover">
 
 		<thead>
@@ -26,7 +29,7 @@
 				<td>{{ product.minVoorraad }}</td>
 				<td>{{ product.voorraad }}</td>
                 {%  if product.voorraad - product.minVoorraad < 0 %}
-					<td><a href="{{ path('verwijderproduct', {'id':product.id}) }}">Bestelserie: {{ product.minVoorraad - product.voorraad }}</a></td>
+					<td><a href="/bestelopdrachten/nieuw">Bestelserie: {{ product.minVoorraad - product.voorraad }}</a></td>
                 {% else %}
 					<td> </td>
                 {% endif %}
@@ -39,32 +42,29 @@
 	</table>
 </div>
 	<div class="row">
-	<h2>Volledige voorraad:</h2>
+	<h3>Volledige voorraad:</h3>
 	<table class="table table-bordered table-striped table-hover">
 
 <thead>
 <td>ID</td>
 <td>Productnaam</td>
 <td>Inkoopprijs</td>
-<td>Min. Voorraad</td>
 <td>Huidig. Voorraad</td>
-<td>Bestelserie</td>
+<td>Tech. Voorraad</td>
+<td>Res. Voorraad</td>
+<td>Economische voorraad</td>
 </thead>
 <tbody>
 	{% for product in producten %}
 		{% if product.status > 0 %}
 			<tr>
 				<td>{{ product.id }}</td>
-			<td>{{ product.naam }}</td>
+				<td>{{ product.naam }}</td>
                 <td>{{ product.inkoopprijs }}</td>
-				<td>{{ product.minVoorraad }}</td>
 				<td>{{ product.voorraad }}</td>
-                {%  if product.voorraad - product.minVoorraad < 0 %}
-                    <td><a href="{{ path('verwijderproduct', {'id':product.id}) }}">Bestelserie: {{ product.minVoorraad - product.voorraad }}</a></td>
-                {% else %}
-                <td> </td>
-                {% endif %}
-
+				<td> {{ product.technischevoorraad }} </td>
+				<td> {{ product.gereserveerdevoorraad }} </td>
+				<td> {{ product.technischevoorraad + product.voorraad * product.inkoopprijs|number_format - product.gereserveerdevoorraad}} </td>
 			</tr>
 	{% endif %}
 	{% endfor %}

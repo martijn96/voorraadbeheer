@@ -1,10 +1,10 @@
 <?php
 
 namespace AppBundle\Controller;
-use AppBundle\Entity\Bestelopdracht;
 use AppBundle\Entity\Bestelling;
 use AppBundle\Form\BestellingType;
 use AppBundle\Entity\Goederenontvangst;
+use AppBundle\Entity\Bestelregel;
 use AppBundle\Form\BestelopdrachtType;
 use AppBundle\Form\ProductType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -94,29 +94,29 @@ class DefaultController extends Controller
         return new Response($this->render('voorraad.html.twig', array('producten' => $producten)));
     }
 
-    /**
-     * @Route ("/bestelopdracht/nieuw ", name="nieuwebestelopdracht")
-     */
-    public function nieuweBestelopdracht(Request $request){
-        $nieuweBestelopdracht = new Bestelopdracht();
-        $form = $this->createForm(BestelopdrachtType::class, $nieuweBestelopdracht);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($nieuweBestelopdracht);
-            $em->flush();
-
-            return $this->redirect($this->generateurl("nieuwebestelopdracht"));
-        }
-        return new Response($this->render('form.html.twig', array('form' => $form->createView())));
-    }
+//    /**
+//     * @Route ("/bestelopdracht/nieuw ", name="nieuwebestelopdracht")
+//     */
+//    public function nieuweBestelopdracht(Request $request){
+//        $nieuweBestelopdracht = new Bestelopdracht();
+//        $form = $this->createForm(BestelopdrachtType::class, $nieuweBestelopdracht);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($nieuweBestelopdracht);
+//            $em->flush();
+//
+//            return $this->redirect($this->generateurl("nieuwebestelopdracht"));
+//        }
+//        return new Response($this->render('form.html.twig', array('form' => $form->createView())));
+//    }
 
     /**
      * @Route ("/bestelopdracht/wijzig/{id} ", name="wijzigbestelopdracht")
      */
     public function wijzigBestelopdracht(Request $request, $id){
-        $bestaandeProduct = $this->getDoctrine()->getRepository("AppBundle:Bestelopdracht")->find($id);
+        $bestaandeProduct = $this->getDoctrine()->getRepository("AppBundle:Bestelling")->find($id);
         $form = $this->createForm(BestelopdrachtType::class, $bestaandeProduct);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -133,7 +133,7 @@ class DefaultController extends Controller
      */
     public function verwijderBestelopdracht(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
-        $bestaandeBestelopdracht = $em->getRepository("AppBundle:Bestelopdracht")->find($id);
+        $bestaandeBestelopdracht = $em->getRepository("AppBundle:Bestelling")->find($id);
         $em->remove($bestaandeBestelopdracht);
         $em->flush();
         return new Response($this->redirect($this->generateurl("allebestelopdrachten")));
@@ -142,8 +142,8 @@ class DefaultController extends Controller
     /**
      * @Route ("/bestelopdrachten", name="allebestelopdrachten")
      */
-    public function alleBestelopdrachten(Request $request){
-        $bestelopdrachten = $this->getDoctrine()->getRepository("AppBundle:Bestelopdracht")->findAll();
+    public function alleBestellingen(Request $request){
+        $bestelopdrachten = $this->getDoctrine()->getRepository("AppBundle:Bestelling")->findAll();
 
         return new Response($this->render('bestellingen.html.twig', array('bestellingen' => $bestelopdrachten)));
     }
@@ -174,11 +174,14 @@ class DefaultController extends Controller
      */
     public function ontvangenGoederen(Request $request){
         $ontvangen = $this->getDoctrine()->getRepository("AppBundle:Goederenontvangst")->findAll();
-        return new Response($this->render('ontvangengoederen.html.twig', array('ontvangengoederen' => $ontvangen)));
+        $producten = $this->getDoctrine()->getRepository("AppBundle:Product")->findAll();
+
+
+        return new Response($this->render('ontvangengoederen.html.twig', array('ontvangengoederen' => $ontvangen, 'producten' => $producten)));
     }
 
     /**
-     * @Route("/inkoper/bestelling/nieuw", name="bestellingnieuw")
+     * @Route ("/bestelopdracht/nieuw ", name="nieuwebestelopdracht")
      */
     public function nieuweBestelling (Request $request) {
         $nieuweBestelling = new Bestelling();
@@ -203,5 +206,21 @@ class DefaultController extends Controller
         ]);
     }
 
+    /**
+     * @Route ("/magazijn/meester", name="magazijnmeester")
+     */
+    public function informatieMagazijnmeester(Request $request){
+        $producten = $this->getDoctrine()->getRepository("AppBundle:Product")->findAll();
 
+        return new Response($this->render('magazijnmeesterinformatie.html.twig', array('producten' => $producten)));
+    }
+
+    /**
+     * @Route ("/hoofd/financien", name="hoofdfinancien")
+     */
+    public function informatieHoofdFinancien(Request $request){
+        $producten = $this->getDoctrine()->getRepository("AppBundle:Product")->findAll();
+
+        return new Response($this->render('hoofdfinancieninformatie.html.twig', array('producten' => $producten)));
+    }
 }
