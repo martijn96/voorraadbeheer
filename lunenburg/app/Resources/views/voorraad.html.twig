@@ -29,7 +29,7 @@
 				<td>{{ product.minVoorraad }}</td>
 				<td>{{ product.voorraad }}</td>
                 {%  if product.voorraad - product.minVoorraad < 0 %}
-					<td><a href="/bestelopdrachten/nieuw">Bestelserie: {{ product.minVoorraad - product.voorraad }}</a></td>
+					<td><a href="/bestelopdracht/nieuw">Bestelserie: {{ product.minVoorraad - product.voorraad }}</a></td>
                 {% else %}
 					<td> </td>
                 {% endif %}

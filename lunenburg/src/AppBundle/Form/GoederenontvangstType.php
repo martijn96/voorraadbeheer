@@ -20,6 +20,9 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Entity\Bestelling;
+use AppBundle\Entity\bestelregel;
+use AppBundle\Entity\Product;
 
 class GoederenontvangstType extends AbstractType
 
@@ -51,7 +54,25 @@ class GoederenontvangstType extends AbstractType
     ));
 
         $builder->add('ordernummer', IntegerType::class);
-        $builder->add('artikelnummer', TextType::class);
+
+//        $builder->add(
+//            'ordernummer', EntityType::class, array(
+//            'label' => 'Artikelnaam',
+//            'class' => 'AppBundle:Bestelling',
+//            'choice_label' => 'id',
+//            'choice_value' => 'id'
+//        ));
+
+
+        $builder->add(
+            'artikelnummer', EntityType::class, array(
+            'label' => 'Artikelnaam',
+            'class' => 'AppBundle:Product',
+            'choice_label' => function (Product $product) {
+                return $product->getId() . ' - ' . $product->getBeschrijving();
+            }
+
+        ));
         $builder->add('omschrijving', TextareaType::class);
         $builder->add('aantal', TextType::class);
         $builder->add('kwaliteit', null, array());

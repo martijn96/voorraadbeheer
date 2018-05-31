@@ -66,30 +66,30 @@ class ProductType extends AbstractType
             ->add('voorraad', TextType::class)
 //            ->add('vervangend_id', TextType::class)
 
+//
+//            ->add( 'vervangend_id', CollectionType::class, [
+//                'entry_type' => Product::class,
+//                'required' => false,
+//                'choice_label' => false,
+//                'choice_value' => 'id',
+//                'empty_data' => null,
+//                'allow_add' => true,
+//                'allow_delete' => true,
+//                'delete_empty' => true
+//            ] )
 
-            ->add( 'vervangend_id', CollectionType::class, [
-                'entry_type' => Product::class,
-                'required' => false,
-                'choice_label' => false,
-                'choice_value' => 'id',
-                'empty_data' => null,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'delete_empty' => true
-            ] )
-
-
-            ->add('vervangend_id', EntityType::class, array(
-            // looks for choices from this entity
-            'class' => 'AppBundle:Product',
-
-            // uses the User.username property as the visible option string
-            'choice_label' => 'naam',
-            'choice_value' => 'id',
-            // used to render a select box, check boxes or radios
-            // 'multiple' => true,
-            // 'expanded' => true,
-        ))
+//
+//            ->add('vervangend_id', EntityType::class, array(
+//            // looks for choices from this entity
+//            'class' => 'AppBundle:Product',
+//
+//            // uses the User.username property as the visible option string
+//            'choice_label' => 'naam',
+//            'choice_value' => 'id',
+//            // used to render a select box, check boxes or radios
+//            // 'multiple' => true,
+//            // 'expanded' => true,
+//        ))
         ;
 
     }
@@ -97,7 +97,7 @@ class ProductType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-//            'data_class' => 'AppBundle\Entity\Product',
+            'data_class' => 'AppBundle\Entity\Product',
 
         ));
     }

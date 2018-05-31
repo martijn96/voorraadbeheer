@@ -36,7 +36,7 @@ class BestelregelType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Bestelregel'
+            'data_class' => 'AppBundle\Entity\bestelregel'
         ));
     }
 

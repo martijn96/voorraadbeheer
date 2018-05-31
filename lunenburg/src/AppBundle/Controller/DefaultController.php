@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Bestelling;
 use AppBundle\Form\BestellingType;
 use AppBundle\Entity\Goederenontvangst;
-use AppBundle\Entity\Bestelregel;
+use AppBundle\Entity\bestelregel;
 use AppBundle\Form\BestelopdrachtType;
 use AppBundle\Form\ProductType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -43,7 +43,7 @@ class DefaultController extends Controller
             return $this->redirect($this->generateurl("nieuwproduct"));
         }
 
-        return new Response($this->render('form.html.twig', array('form' => $form->createView())));
+        return new Response($this->renderView('form.html.twig', array('form' => $form->createView())));
     }
 
     /**
@@ -61,7 +61,7 @@ class DefaultController extends Controller
             return $this->redirect($this->generateurl("wijzigproduct", array("id" => $bestaandProduct->getId())));
         }
 
-        return new Response($this->render('form.html.twig', array('form' => $form->createView())));
+        return new Response($this->renderView('form.html.twig', array('form' => $form->createView())));
     }
 
     /**
@@ -70,7 +70,7 @@ class DefaultController extends Controller
     public function alleProducten(Request $request){
         $producten = $this->getDoctrine()->getRepository("AppBundle:Product")->findAll();
 
-        return new Response($this->render('producten.html.twig', array('producten' => $producten)));
+        return new Response($this->renderView('producten.html.twig', array('producten' => $producten)));
     }
 
     /**
@@ -91,7 +91,7 @@ class DefaultController extends Controller
     public function voorraad(Request $request){
         $producten = $this->getDoctrine()->getRepository("AppBundle:Product")->findAll();
 //        $voorraad = $this->getDoctrine()->getRepository("Appbundle:Voorraad");
-        return new Response($this->render('voorraad.html.twig', array('producten' => $producten)));
+        return new Response($this->renderView('voorraad.html.twig', array('producten' => $producten)));
     }
 
 //    /**
@@ -125,7 +125,7 @@ class DefaultController extends Controller
             $em->flush();
             return $this->redirect($this->generateurl("wijzigbestelopdracht", array("id" => $bestaandeProduct->getId())));
         }
-        return new Response($this->render('form.html.twig', array('form' => $form->createView())));
+        return new Response($this->renderView('form.html.twig', array('form' => $form->createView())));
     }
 
     /**
@@ -143,9 +143,10 @@ class DefaultController extends Controller
      * @Route ("/bestelopdrachten", name="allebestelopdrachten")
      */
     public function alleBestellingen(Request $request){
-        $bestelopdrachten = $this->getDoctrine()->getRepository("AppBundle:Bestelling")->findAll();
-
-        return new Response($this->render('bestellingen.html.twig', array('bestellingen' => $bestelopdrachten)));
+//        $bestelopdrachten = $this->getDoctrine()->getRepository("AppBundle:Bestelling")->findAll();
+        $bestellingen = $this->getDoctrine()->getRepository("AppBundle:Bestelling")->findAll();
+        $bestelregels = $this->getDoctrine()->getRepository("AppBundle:Bestelregel")->findAll();
+        return new Response($this->renderView('bestellingen.html.twig', array('bestellingen' => $bestellingen, 'bestelregels' => $bestelregels)));
     }
 
     /**
@@ -165,7 +166,7 @@ class DefaultController extends Controller
             );
             return $this->redirect($this->generateurl("nieuweontvangst"));
         }
-        return new Response($this->render('form.html.twig', array('form' => $form->createView())));
+        return new Response($this->renderView('form.html.twig', array('form' => $form->createView())));
     }
 
 
@@ -177,7 +178,7 @@ class DefaultController extends Controller
         $producten = $this->getDoctrine()->getRepository("AppBundle:Product")->findAll();
 
 
-        return new Response($this->render('ontvangengoederen.html.twig', array('ontvangengoederen' => $ontvangen, 'producten' => $producten)));
+        return new Response($this->renderView('ontvangengoederen.html.twig', array('ontvangengoederen' => $ontvangen, 'producten' => $producten)));
     }
 
     /**
@@ -204,23 +205,5 @@ class DefaultController extends Controller
         return $this->render('formbestel.html.twig', [
             'form' => $form->createView(),
         ]);
-    }
-
-    /**
-     * @Route ("/magazijn/meester", name="magazijnmeester")
-     */
-    public function informatieMagazijnmeester(Request $request){
-        $producten = $this->getDoctrine()->getRepository("AppBundle:Product")->findAll();
-
-        return new Response($this->render('magazijnmeesterinformatie.html.twig', array('producten' => $producten)));
-    }
-
-    /**
-     * @Route ("/hoofd/financien", name="hoofdfinancien")
-     */
-    public function informatieHoofdFinancien(Request $request){
-        $producten = $this->getDoctrine()->getRepository("AppBundle:Product")->findAll();
-
-        return new Response($this->render('hoofdfinancieninformatie.html.twig', array('producten' => $producten)));
     }
 }

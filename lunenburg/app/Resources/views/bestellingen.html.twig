@@ -1,24 +1,29 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <h1>Bestellingen overzicht</h1>
-    <table>
-            <tr>
+<div class="container">
+    <div class="row">
+        <br>
+        <h1>Bestellingen</h1>
+    </div>
+    <br><br>
+    <div class="row">
+        <button><a href="{{ path('nieuwebestelopdracht') }}">Nieuwe bestelopdracht</a></button>
+        <table class="table table-bordered table-striped table-hover">
+        <thead>
                 <td>Aantal bestele producten</td>
                 <td>Productbarcode</td>
-
-            </tr>
-
-        {% for bestelling in bestellingen %}
+        </thead>
+        <tbody>
+        {% for bestelling in bestelregels %}
             <tr>
                 <td>{{ bestelling.aantal }}</td>
-                <td>{{ bestelling.productBarcode }}</td>
-
-
-                <td><a href="{{ path('wijzigbestelopdracht', {'id':bestelling.id}) }}">Wijzigen</a></td>
-                <td><a href="{{ path('verwijderbestelopdracht', {'id':bestelling.id}) }}">Verwijderen</a></td>
+                <td>{{ bestelling.productId }}</td>
             </tr>
         {% endfor %}
+        </tbody>
     </table>
+    </div>
+</div>
 
-    <a href="{{ path('nieuwebestelopdracht') }}">Nieuwe bestelopdracht</a>
+
 {% endblock %}

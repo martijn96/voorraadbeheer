@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="bestelregel")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BestelregelRepository")
  */
-class Bestelregel
+class bestelregel
 {
     /**
      * @var int
@@ -32,7 +32,7 @@ class Bestelregel
      * @var int
 
      *
-     * @ORM\OneToMany(targetEntity="bestelling")
+     * @ORM\ManyToOne(targetEntity="bestelling", inversedBy="bestelregel")
      * @ORM\JoinColumn(name="bestelling_id", referencedColumnName="id")
      */
     private $bestellingId;
@@ -60,7 +60,7 @@ class Bestelregel
      *
      * @param integer $productId
      *
-     * @return Bestelregel
+     * @return bestelregel
      */
     public function setProductId($productId)
     {
@@ -84,7 +84,7 @@ class Bestelregel
      *
      * @param integer $bestellingId
      *
-     * @return Bestelregel
+     * @return bestelregel
      */
     public function setBestellingId($bestellingId)
     {
@@ -108,7 +108,7 @@ class Bestelregel
      *
      * @param integer $aantal
      *
-     * @return Bestelregel
+     * @return bestelregel
      */
     public function setAantal($aantal)
     {
